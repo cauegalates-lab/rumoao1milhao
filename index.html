@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#031638" />
+  <meta name="description" content="Painel demonstrativo de acompanhamento da meta de faturamento UNIFAHE." />
+  <title>Rumo ao 1 Milhão | UNIFAHE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-loader" id="pageLoader" aria-hidden="true">
+    <img src="logoWhite.png" alt="" />
+    <div class="loader-bar"><span></span></div>
+    <p>Carregando painel...</p>
+  </div>
+
+  <div class="background-shapes" aria-hidden="true">
+    <span class="shape shape-one"></span>
+    <span class="shape shape-two"></span>
+    <span class="shape shape-three"></span>
+  </div>
+
+  <main class="dashboard" data-goal="1000000">
+    <header class="topbar">
+      <div class="brand-area">
+        <img class="brand-logo" src="logoWhite.png" alt="UNIFAHE Faculdade a Distância" />
+        <span class="brand-divider" aria-hidden="true"></span>
+        <div class="heading-copy">
+          <p class="eyebrow">ACOMPANHAMENTO MENSAL</p>
+          <h1>Rumo ao <span>1 Milhão</span></h1>
+          <p class="subtitle">Visão geral do desempenho comercial no mês atual</p>
+        </div>
+      </div>
+
+      <div class="status-pill is-loading" id="connectionStatus" role="status" aria-live="polite">
+        <span class="status-dot"></span>
+        <span id="connectionStatusText">Conectando à planilha...</span>
+      </div>
+    </header>
+
+    <section class="performance-card">
+      <span class="corner-accent corner-left" aria-hidden="true"></span>
+      <span class="corner-accent corner-right" aria-hidden="true"></span>
+
+      <div class="coin-cluster coin-cluster-left" aria-hidden="true">
+        <span class="coin coin-large">$</span>
+        <span class="coin coin-medium">$</span>
+        <span class="coin coin-small">$</span>
+      </div>
+
+      <div class="main-metric">
+        <div class="metric-label-row">
+          <p class="label">FATURAMENTO ATUAL</p>
+          <svg class="trend-mini" viewBox="0 0 42 24" fill="none" aria-hidden="true">
+            <path d="M2 21L12 13L20 17L31 5L40 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M33 4H41V12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <h2 id="currentRevenue" aria-live="polite"></h2>
+        <div class="value-glow" aria-hidden="true"></div>
+
+        <div class="growth-illustration" aria-hidden="true">
+          <div class="bars">
+            <i style="--h: 22%"></i>
+            <i style="--h: 38%"></i>
+            <i style="--h: 56%"></i>
+            <i style="--h: 74%"></i>
+            <i style="--h: 94%"></i>
+          </div>
+          <svg viewBox="0 0 210 130" fill="none">
+            <defs>
+              <linearGradient id="arrowGradient" x1="18" y1="116" x2="190" y2="14" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FF7A00"/>
+                <stop offset="1" stop-color="#FFB22F"/>
+              </linearGradient>
+            </defs>
+            <path d="M14 112C55 103 72 81 101 76C129 71 142 45 179 25" stroke="url(#arrowGradient)" stroke-width="9" stroke-linecap="round"/>
+            <path d="M159 17L192 15L181 47" fill="#FF8A00"/>
+          </svg>
+        </div>
+
+        <div class="progress-area">
+          <div class="progress-track" aria-label="Progresso da meta">
+            <div class="progress-fill" id="progressFill"></div>
+            <div class="progress-badge" id="progressBadge"><span id="progressPercent"></span></div>
+          </div>
+          <p><strong id="progressCaption"></strong> da meta alcançada</p>
+        </div>
+      </div>
+
+      <aside class="metric-stack" aria-label="Resumo da meta">
+        <article class="metric-box metric-blue">
+          <div class="metric-icon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14.5 9.5L20 4M16.7 4H20V7.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p>META</p>
+            <strong id="goalRevenue">R$ 1.000.000</strong>
+          </div>
+        </article>
+
+        <article class="metric-box metric-orange">
+          <div class="metric-icon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14.7 8.7C14.1 8.1 13.2 7.7 12.1 7.7C10.6 7.7 9.4 8.5 9.4 9.7C9.4 12.7 15 11.1 15 14.3C15 15.6 13.8 16.4 12.1 16.4C10.8 16.4 9.7 16 9 15.2M12 6.4V17.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p>FALTAM</p>
+            <strong id="remainingRevenue"></strong>
+          </div>
+        </article>
+
+        <article class="metric-box metric-blue">
+          <div class="metric-icon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3V12H21C21 7 17 3 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M9.5 4.2C5.7 5.3 3 8.8 3 13C3 18 7 22 12 22C16.2 22 19.7 19.3 20.8 15.5H9.5V4.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p>FALTA ATINGIR</p>
+            <strong><span id="remainingPercent"></span> <small>da meta</small></strong>
+          </div>
+        </article>
+      </aside>
+    </section>
+
+    <section class="countdown-section">
+      <div class="countdown-copy">
+        <div class="calendar-icon" aria-hidden="true">
+          <span class="calendar-top"></span>
+          <span class="calendar-grid"></span>
+          <span class="clock-face"></span>
+        </div>
+        <div>
+          <p class="eyebrow">TEMPO RESTANTE</p>
+          <h2>Contagem regressiva<br /><span>para o fim do mês</span></h2>
+          <p id="monthEndText">Até o último dia do mês</p>
+        </div>
+      </div>
+
+      <div class="countdown" aria-label="Cronômetro até o fim do mês">
+        <div class="time-box">
+          <strong id="days">00</strong>
+          <span>Dias</span>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-box">
+          <strong id="hours">00</strong>
+          <span>Horas</span>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-box">
+          <strong id="minutes">00</strong>
+          <span>Minutos</span>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-box">
+          <strong id="seconds">00</strong>
+          <span>Segundos</span>
+        </div>
+      </div>
+
+      <div class="bottom-growth" aria-hidden="true">
+        <div class="bottom-bars">
+          <i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <span></span>
+      </div>
+    </section>
+
+    <footer>
+      <p><span>★</span> NOSSA META É GRANDE. <strong>NOSSA DETERMINAÇÃO É MAIOR AINDA!</strong></p>
+      <small>Desenvolvido por Cauê Galates</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
