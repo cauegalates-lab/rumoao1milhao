@@ -79,7 +79,6 @@ function renderDashboard(faturado, { animate = true } = {}) {
     const badge = document.getElementById("progressBadge");
     fill.style.width = `calc(${percentage}% - 4px)`;
     badge.style.left = `${Math.min(Math.max(percentage, 5), 95)}%`;
-    requestDashboardFit();
   });
 
   currentRevenueValue = safeRevenue;
@@ -212,38 +211,6 @@ function updateCountdown() {
     `Até 23h59 do dia ${lastDay.getDate()} de ${monthName}`;
 }
 
-/**
- * Ajusta o painel inteiro proporcionalmente para caber na tela.
- * Assim o layout permanece igual em TV, notebook, tablet ou celular
- * e nenhuma barra de rolagem é criada.
- */
-function fitDashboardToViewport() {
-  const dashboard = document.querySelector(".dashboard");
-  if (!dashboard) return;
-
-  dashboard.style.setProperty("--dashboard-scale", "1");
-
-  const safeMargin = Math.max(8, Math.min(window.innerWidth, window.innerHeight) * 0.012);
-  const availableWidth = Math.max(window.innerWidth - safeMargin * 2, 1);
-  const availableHeight = Math.max(window.innerHeight - safeMargin * 2, 1);
-  const naturalWidth = dashboard.offsetWidth;
-  const naturalHeight = dashboard.offsetHeight;
-
-  const scale = Math.min(
-    availableWidth / naturalWidth,
-    availableHeight / naturalHeight,
-    1
-  );
-
-  dashboard.style.setProperty("--dashboard-scale", scale.toFixed(5));
-}
-
-let resizeFrame;
-function requestDashboardFit() {
-  cancelAnimationFrame(resizeFrame);
-  resizeFrame = requestAnimationFrame(fitDashboardToViewport);
-}
-
 window.addEventListener("DOMContentLoaded", async () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -251,21 +218,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   await updateRevenue({ initial: true });
   setInterval(() => updateRevenue(), CONFIG.refreshIntervalMs);
 
-  requestDashboardFit();
-  setTimeout(requestDashboardFit, 80);
-  setTimeout(requestDashboardFit, 750);
-
   document.getElementById("pageLoader").classList.add("hidden");
 });
-
-window.addEventListener("load", requestDashboardFit);
-window.addEventListener("resize", requestDashboardFit, { passive: true });
-window.addEventListener("orientationchange", () => setTimeout(requestDashboardFit, 120));
-
-if ("ResizeObserver" in window) {
-  const dashboardObserver = new ResizeObserver(requestDashboardFit);
-  window.addEventListener("DOMContentLoaded", () => {
-    const dashboard = document.querySelector(".dashboard");
-    if (dashboard) dashboardObserver.observe(dashboard);
-  });
-}
