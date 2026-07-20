@@ -72,21 +72,21 @@ var CONFIG_METAS_EQUIPES = {
   predadores: {
     semana1: 36900,
     semana2: 36900,
-    semana3: 36900,
+    semana3: 31900,
     semana4: 36900
   },
 
   invictus: {
     semana1: 32675,
     semana2: 32675,
-    semana3: 32675,
+    semana3: 27675,
     semana4: 32675
   },
 
   evolution: {
     semana1: 33450,
     semana2: 33450,
-    semana3: 33450,
+    semana3: 28450,
     semana4: 33450
   },
 
@@ -100,21 +100,21 @@ var CONFIG_METAS_EQUIPES = {
   winx: {
     semana1: 29225,
     semana2: 29225,
-    semana3: 33450,
+    semana3: 28450,
     semana4: 29225
   },
 
   alfas: {
     semana1: 36900,
     semana2: 36900,
-    semana3: 36900,
+    semana3: 31900,
     semana4: 36900
   },
 
   goat: {
     semana1: 32675,
     semana2: 32675,
-    semana3: 32675,
+    semana3: 27675,
     semana4: 32675
   }
 };
