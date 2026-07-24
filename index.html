@@ -7,6 +7,10 @@
   <meta name="description" content="Painel demonstrativo de acompanhamento da meta de faturamento UNIFAHE." />
   <title>Rumo ao 1 Milhão | UNIFAHE</title>
   <link rel="stylesheet" href="style.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 </head>
 <body>
   <div class="page-loader" id="pageLoader" aria-hidden="true">
@@ -85,7 +89,9 @@
           <div class="progress-track" aria-label="Progresso da meta">
             <div class="progress-fill" id="progressFill"></div>
             <div class="progress-badge" id="progressBadge"><span id="progressPercent"></span></div>
-      
+          </div>
+          <p><strong id="progressCaption"></strong></p>
+        </div>
       </div>
 
       <aside class="metric-stack" aria-label="Resumo da meta">
