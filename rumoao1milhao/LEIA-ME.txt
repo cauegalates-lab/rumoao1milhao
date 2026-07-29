@@ -1,0 +1,25 @@
+PAINEL RUMO AO 1 MILHÃO - UNIFAHE
+
+O QUE JÁ ESTÁ CONFIGURADO
+- A meta de R$ 1.000.000 fica fixa no index.html, no atributo data-goal.
+- O faturamento será lido da aba Julho, célula AK35.
+- Faltam, percentual atingido, percentual restante e barra de progresso são calculados automaticamente.
+- O painel consulta a planilha novamente a cada 60 segundos.
+- O cronômetro continua contando até o fim do mês atual.
+
+COMO CONECTAR
+1. Abra a planilha que contém a aba Julho.
+2. Vá em Extensões > Apps Script.
+3. Cole o conteúdo do arquivo Code.gs.
+4. Clique em Implantar > Nova implantação.
+5. Tipo: Aplicativo da Web.
+6. Executar como: Você.
+7. Quem pode acessar: Qualquer pessoa.
+8. Autorize e copie a URL terminada em /exec.
+9. Abra script.js e cole essa URL em CONFIG.appsScriptUrl.
+10. Salve e publique os arquivos do painel novamente.
+
+Enquanto a URL não for colada, o painel mostra o valor demonstrativo de R$ 561.430.
+
+IMPORTANTE
+Se o projeto do Apps Script já possuir uma função doGet, não cole uma segunda função doGet. Nesse caso, envie o código atual para que as rotas sejam unificadas.

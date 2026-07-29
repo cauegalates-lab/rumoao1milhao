@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#020a16" />
+  <meta name="description" content="Apresentação automática dos painéis UNIFAHE." />
+  <title>Painéis UNIFAHE | Apresentação</title>
+  <link rel="icon" type="image/png" href="timesunifahe/assets/unifahe-icon.png" />
+  <link rel="stylesheet" href="carousel.css" />
+</head>
+<body>
+  <main class="carousel" aria-label="Apresentação dos painéis UNIFAHE">
+    <section class="slide is-active" data-slide="0" aria-hidden="false">
+      <iframe
+        src="rumoao1milhao/index.html"
+        title="Painel Rumo ao 1 Milhão"
+        loading="eager"
+        allow="fullscreen"
+      ></iframe>
+    </section>
+
+    <section class="slide" data-slide="1" aria-hidden="true">
+      <iframe
+        src="timesunifahe/index.html"
+        title="Painel de Times UNIFAHE"
+        loading="eager"
+        allow="fullscreen"
+      ></iframe>
+    </section>
+
+    <div class="transition-cover" aria-hidden="true"></div>
+
+    <div class="carousel-ui" aria-hidden="true">
+      <div class="slide-counter">
+        <span id="currentSlideNumber">1</span>
+        <i></i>
+        <span>2</span>
+      </div>
+      <div class="dots">
+        <span class="dot is-active"></span>
+        <span class="dot"></span>
+      </div>
+      <p class="click-hint">Clique em qualquer lugar para trocar</p>
+    </div>
+
+    <div class="timer-track" aria-hidden="true">
+      <span id="timerProgress"></span>
+    </div>
+
+    <noscript>
+      <p class="no-script">Ative o JavaScript para alternar os painéis automaticamente.</p>
+    </noscript>
+  </main>
+
+  <script src="carousel.js"></script>
+</body>
+</html>

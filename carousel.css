@@ -1,0 +1,220 @@
+:root {
+  color-scheme: dark;
+  --transition-duration: 850ms;
+  --cyan: #20cfff;
+  --orange: #ff7a00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #020713;
+}
+
+body {
+  font-family: Inter, Montserrat, Arial, sans-serif;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(20, 142, 215, 0.12), transparent 48%),
+    #020713;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.012);
+  filter: brightness(0.72) blur(2px);
+  transition:
+    opacity var(--transition-duration) ease,
+    transform var(--transition-duration) cubic-bezier(.22, .76, .28, 1),
+    filter var(--transition-duration) ease,
+    visibility 0s linear var(--transition-duration);
+}
+
+.slide.is-active {
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+  filter: none;
+  transition-delay: 0s;
+}
+
+.slide iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #020713;
+}
+
+.transition-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(115deg, transparent 0 42%, rgba(25, 201, 255, .12) 48%, rgba(255, 122, 0, .16) 52%, transparent 58%),
+    rgba(1, 7, 16, .18);
+  transform: translateX(-100%);
+}
+
+.carousel.is-changing .transition-cover {
+  animation: sweep var(--transition-duration) ease both;
+}
+
+@keyframes sweep {
+  0% { opacity: 0; transform: translateX(-100%); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+
+.carousel-ui {
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  z-index: 10;
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+  pointer-events: none;
+  color: #fff;
+  opacity: .88;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .78);
+  transition: opacity .4s ease;
+}
+
+.carousel-ui.is-subtle {
+  opacity: .34;
+}
+
+.slide-counter {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.slide-counter i {
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), var(--orange));
+  box-shadow: 0 0 8px rgba(32, 207, 255, .55);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .3);
+  box-shadow: 0 0 0 rgba(32, 207, 255, 0);
+  transition: width .35s ease, background .35s ease, box-shadow .35s ease;
+}
+
+.dot.is-active {
+  width: 24px;
+  background: linear-gradient(90deg, var(--cyan), var(--orange));
+  box-shadow: 0 0 10px rgba(32, 207, 255, .45);
+}
+
+.click-hint {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.timer-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgba(255, 255, 255, .06);
+}
+
+.timer-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), #4ae8ff 55%, var(--orange));
+  box-shadow: 0 0 12px rgba(32, 207, 255, .8);
+}
+
+.timer-track span.is-running {
+  animation: timer-fill var(--slide-duration, 60000ms) linear forwards;
+}
+
+@keyframes timer-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.no-script {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: #fff;
+  background: #020713;
+}
+
+@media (max-width: 700px) {
+  .carousel-ui {
+    right: 12px;
+    bottom: 10px;
+  }
+
+  .click-hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-duration: 180ms;
+  }
+
+  .slide,
+  .transition-cover,
+  .dot {
+    transition-duration: 180ms;
+  }
+
+  .carousel.is-changing .transition-cover {
+    animation: none;
+  }
+}
