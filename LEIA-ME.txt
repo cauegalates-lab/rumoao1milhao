@@ -23,3 +23,10 @@ Enquanto a URL não for colada, o painel mostra o valor demonstrativo de R$ 561.
 
 IMPORTANTE
 Se o projeto do Apps Script já possuir uma função doGet, não cole uma segunda função doGet. Nesse caso, envie o código atual para que as rotas sejam unificadas.
+
+
+BOTÃO DE TESTE DA ANIMAÇÃO
+---------------------------
+O botão “ATIVAR ANIMAÇÃO”, no cabeçalho do painel, permite executar manualmente
+a comemoração de 1 milhão sem alterar o valor da planilha. Ele pode ser usado
+quantas vezes for necessário para apresentação e conferência.
