@@ -1,32 +1,29 @@
-PAINEL RUMO AO 1 MILHÃO - UNIFAHE
+PAINEL RUMO AO 1,2 MILHÃO — UNIFAHE
 
-O QUE JÁ ESTÁ CONFIGURADO
-- A meta de R$ 1.000.000 fica fixa no index.html, no atributo data-goal.
-- O faturamento será lido da aba Julho, célula AK35.
-- Faltam, percentual atingido, percentual restante e barra de progresso são calculados automaticamente.
-- O painel consulta a planilha novamente a cada 60 segundos.
-- O cronômetro continua contando até o fim do mês atual.
+Este pacote contém somente o painel de faturamento. A alternância automática e a troca por clique entre painéis foram removidas.
 
-COMO CONECTAR
-1. Abra a planilha que contém a aba Julho.
-2. Vá em Extensões > Apps Script.
-3. Cole o conteúdo do arquivo Code.gs.
-4. Clique em Implantar > Nova implantação.
-5. Tipo: Aplicativo da Web.
-6. Executar como: Você.
-7. Quem pode acessar: Qualquer pessoa.
-8. Autorize e copie a URL terminada em /exec.
-9. Abra script.js e cole essa URL em CONFIG.appsScriptUrl.
-10. Salve e publique os arquivos do painel novamente.
+METAS
+- Marco intermediário: R$ 1.000.000
+- Meta final estendida: R$ 1.200.000
+- O marco de R$ 1 milhão fica em 83,33% da escala, pois 1.000.000 / 1.200.000 = 0,8333.
+- O marco é mostrado acima da barra, sem ocupar o mesmo espaço da bolinha móvel do percentual.
 
-Enquanto a URL não for colada, o painel mostra o valor demonstrativo de R$ 561.430.
+CÁLCULOS AUTOMÁTICOS
+- Progresso = faturamento atual / 1.200.000
+- Faltam = 1.200.000 - faturamento atual
+- Falta atingir = 100% - progresso
+- Os valores nunca ficam negativos depois que a meta final é atingida.
 
-IMPORTANTE
-Se o projeto do Apps Script já possuir uma função doGet, não cole uma segunda função doGet. Nesse caso, envie o código atual para que as rotas sejam unificadas.
+PUBLICAÇÃO
+Envie todos os arquivos desta pasta para a raiz do repositório do GitHub Pages. O arquivo index.html deve permanecer na raiz.
+
+TESTE LOCAL
+Adicione ?previewRevenue=903686.33 ao endereço para testar os cálculos sem depender da planilha.
 
 
-BOTÃO DE TESTE DA ANIMAÇÃO
----------------------------
-O botão “ATIVAR ANIMAÇÃO”, no cabeçalho do painel, permite executar manualmente
-a comemoração de 1 milhão sem alterar o valor da planilha. Ele pode ser usado
-quantas vezes for necessário para apresentação e conferência.
+ATUALIZAÇÃO — GERENTE NO PAINEL
+- A imagem gerente-unifahe.png foi integrada na área superior direita do card principal.
+- O posicionamento é responsivo e não interfere na barra, porcentagem ou cards de métricas.
+- Em telas menores que 980 px, a figura é ocultada para preservar a leitura.
+
+- O gerente foi recortado com fundo transparente e o favicon foi restaurado para a estrela UNIFAHE.
