@@ -1,7 +1,7 @@
 const CONFIG = {
   // Depois de publicar o arquivo Code.gs como aplicativo da web,
   // cole aqui a URL terminada em /exec.
-  appsScriptUrl: "https://script.google.com/macros/s/AKfycbzi-jbRSsxs-zLwMZ8ujKbNboKoQiyXYR0wdhLCOGwylcEajAaO7RR8mWadUDKM5tQ7/exec",
+  appsScriptUrl: "https://script.google.com/macros/s/AKfycbzXCgSQ7yrj3evtyX6U9D7B5uBVlmtBWC5vayHc3yA24MujmrSQtEgERn9oFORDzmYv/exec",
 
   // Atualiza o faturamento automaticamente a cada 60 segundos.
   refreshIntervalMs: 60_000
