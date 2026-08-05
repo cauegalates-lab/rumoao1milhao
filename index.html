@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#031638" />
-  <meta name="description" content="Painel de acompanhamento das metas de faturamento de R$ 1 milhão e R$ 1,2 milhão da UNIFAHE." />
-  <title>Rumo ao 1,2 Milhão | UNIFAHE</title>
+  <meta name="description" content="Painel demonstrativo de acompanhamento da meta de faturamento UNIFAHE." />
+  <title>Rumo ao 1 Milhão | UNIFAHE</title>
   <link rel="stylesheet" href="style.css" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 </head>
 <body>
   <div class="page-loader" id="pageLoader" aria-hidden="true">
@@ -25,28 +25,21 @@
     <span class="shape shape-three"></span>
   </div>
 
-  <main class="dashboard" data-goal="1200000" data-milestone-goal="1000000" data-extra-days="2">
+  <main class="dashboard" data-goal="1000000">
     <header class="topbar">
       <div class="brand-area">
         <img class="brand-logo" src="logoWhite.png" alt="UNIFAHE Faculdade a Distância" />
         <span class="brand-divider" aria-hidden="true"></span>
         <div class="heading-copy">
           <p class="eyebrow">ACOMPANHAMENTO MENSAL</p>
-          <h1>Rumo ao <span>1,2 Milhão</span></h1>
+          <h1>Rumo ao <span>1 Milhão</span></h1>
           <p class="subtitle">Visão geral do desempenho comercial no mês atual</p>
         </div>
       </div>
 
-      <div class="topbar-actions">
-        <div class="extension-pill" aria-label="Prazo estendido em dois dias">
-          <strong>+2 DIAS EXTRAS</strong>
-          <span>Nova meta: R$ 1,2 milhão</span>
-        </div>
-
-        <div class="status-pill is-loading" id="connectionStatus" role="status" aria-live="polite">
-          <span class="status-dot"></span>
-          <span id="connectionStatusText">Conectando à planilha...</span>
-        </div>
+      <div class="status-pill is-loading" id="connectionStatus" role="status" aria-live="polite">
+        <span class="status-dot"></span>
+        <span id="connectionStatusText">Conectando à planilha...</span>
       </div>
     </header>
 
@@ -72,34 +65,32 @@
         <h2 id="currentRevenue" aria-live="polite"></h2>
         <div class="value-glow" aria-hidden="true"></div>
 
-        <div class="manager-spotlight" aria-label="Gerente da UNIFAHE">
-          <span class="manager-aura" aria-hidden="true"></span>
-          <img src="gerente-unifahe.png" alt="Ilustração do gerente da UNIFAHE" />
+        <div class="growth-illustration" aria-hidden="true">
+          <div class="bars">
+            <i style="--h: 22%"></i>
+            <i style="--h: 38%"></i>
+            <i style="--h: 56%"></i>
+            <i style="--h: 74%"></i>
+            <i style="--h: 94%"></i>
+          </div>
+          <svg viewBox="0 0 210 130" fill="none">
+            <defs>
+              <linearGradient id="arrowGradient" x1="18" y1="116" x2="190" y2="14" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FF7A00"/>
+                <stop offset="1" stop-color="#FFB22F"/>
+              </linearGradient>
+            </defs>
+            <path d="M14 112C55 103 72 81 101 76C129 71 142 45 179 25" stroke="url(#arrowGradient)" stroke-width="9" stroke-linecap="round"/>
+            <path d="M159 17L192 15L181 47" fill="#FF8A00"/>
+          </svg>
         </div>
 
         <div class="progress-area">
-          <div class="progress-track" id="progressTrack" aria-label="Progresso até a meta final de 1,2 milhão">
+          <div class="progress-track" aria-label="Progresso da meta">
             <div class="progress-fill" id="progressFill"></div>
-
-            <div class="goal-marker" id="millionGoalMarker" aria-label="Marco da meta de 1 milhão">
-              <span class="goal-marker-label">
-                <b>META 1 MILHÃO</b>
-                <small id="milestoneGoalRevenue">R$ 1.000.000</small>
-              </span>
-            </div>
-
-            <div class="final-goal-label" aria-hidden="true">
-              <b>META FINAL</b>
-              <small id="finalGoalRevenue">R$ 1.200.000</small>
-            </div>
-
             <div class="progress-badge" id="progressBadge"><span id="progressPercent"></span></div>
           </div>
-          <p class="progress-description">
-            <span><i class="legend-dot legend-current"></i>Progresso atual</span>
-            <span><i class="legend-dot legend-extension"></i>Trecho entre R$ 1 milhão e R$ 1,2 milhão</span>
-            <strong id="progressCaption"></strong>
-          </p>
+          <p><strong id="progressCaption"></strong></p>
         </div>
       </div>
 
@@ -113,8 +104,8 @@
             </svg>
           </div>
           <div>
-            <p>META ESTENDIDA</p>
-            <strong id="goalRevenue">R$ 1.200.000</strong>
+            <p>META</p>
+            <strong id="goalRevenue">R$ 1.000.000</strong>
           </div>
         </article>
 
@@ -155,14 +146,13 @@
         </div>
         <div>
           <p class="eyebrow">TEMPO RESTANTE</p>
-          <h2>Contagem regressiva<br /><span>com +2 dias extras</span></h2>
-          <p id="monthEndText">Prazo estendido em 2 dias</p>
+          <h2>Contagem regressiva<br /><span>para o fim do mês</span></h2>
+          <p id="monthEndText">Até o último dia do mês</p>
         </div>
       </div>
 
-      <div class="countdown" aria-label="Cronômetro até o prazo estendido">
-        <div class="time-box time-box-days">
-          <span class="extra-days-badge">+2</span>
+      <div class="countdown" aria-label="Cronômetro até o fim do mês">
+        <div class="time-box">
           <strong id="days">00</strong>
           <span>Dias</span>
         </div>
