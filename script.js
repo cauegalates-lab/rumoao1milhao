@@ -8,7 +8,7 @@ const CONFIG = {
 };
 
 const dashboardElement = document.querySelector(".dashboard");
-const GOAL = Number(dashboardElement?.dataset.goal) || 1_000_000;
+const GOAL = Number(dashboardElement?.dataset.goal) || 1_200_000;
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
