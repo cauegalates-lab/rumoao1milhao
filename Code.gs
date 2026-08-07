@@ -9,7 +9,13 @@ var CONFIG_R2 = {
   // Coluna M dentro do intervalo B:M
   INDICE_COLUNA_FILTRO: 11,
 
-  VALOR_FILTRO: "R2 2026",
+  // Valores aceitos na coluna M
+  VALORES_FILTRO: [
+    "R2 2026",
+    "DIPLOMADO-R2"
+  ],
+
+
   CACHE_SEGUNDOS: 30
 };
 
@@ -17,14 +23,20 @@ var CONFIG_R2 = {
 var CONFIG_EQUIPES = {
   ABA: "Vendas",
   LINHA_INICIAL: 2,
+  FUSO_HORARIO: "America/Sao_Paulo",
 
-  // Colunas específicas da aba Vendas
+  // Data da venda separada nas colunas B, C e D.
   COLUNA_DIA: 2,          // B
   COLUNA_MES: 3,          // C
   COLUNA_ANO: 4,          // D
+
+  // O painel identifica o vendedor na coluna E
+  // e soma o faturamento correspondente da coluna T.
   COLUNA_VENDEDOR: 5,     // E
   COLUNA_VALOR_TOTAL: 20, // T
 
+  // Segunda a sábado. Domingo não entra nem na semana nem no mês.
+  IGNORAR_DOMINGO: true,
   CACHE_SEGUNDOS: 30
 };
 
@@ -53,7 +65,7 @@ var CONFIG_CRESCIMENTO = {
 
 
 var CONFIG_META_MILHAO = {
-  ABA: "Julho",
+  ABA: "Agosto",
   CELULA_FATURADO: "AK35",
   CACHE_SEGUNDOS: 30,
   FUSO_HORARIO: "America/Sao_Paulo"
@@ -64,60 +76,182 @@ var CONFIG_META_MILHAO = {
  * METAS SEMANAIS DAS EQUIPES
  *
  * Edite somente os valores abaixo quando quiser alterar as metas.
- * No botão MÊS, a meta mensal é a soma das quatro semanas.
+ * No botão MÊS, a meta mensal é a soma das cinco semanas.
  * Opcional: você pode adicionar `mes: 150000` em uma equipe para
  * substituir a soma automática por uma meta mensal fixa.
  */
 var CONFIG_METAS_EQUIPES = {
-  predadores: {
+   predadores: {
     semana1: 36900,
     semana2: 36900,
-    semana3: 31900,
-    semana4: 36900
+    semana3: 36900,
+    semana4: 31900,
+    semana5: 50000
+
   },
 
   invictus: {
     semana1: 32675,
     semana2: 32675,
-    semana3: 27675,
-    semana4: 32675
+    semana3: 32675,
+    semana4: 26900,
+    semana5: 50000
   },
 
   evolution: {
     semana1: 33450,
     semana2: 33450,
-    semana3: 28450,
-    semana4: 33450
+    semana3: 33450,
+    semana4: 28450,
+    semana5: 50000
   },
 
   vip: {
     semana1: 38450,
     semana2: 38450,
     semana3: 34225,
-    semana4: 38450
+    semana4: 32675,
+    semana5: 50000
   },
 
   winx: {
     semana1: 29225,
     semana2: 29225,
-    semana3: 28450,
-    semana4: 29225
+    semana3: 33450,
+    semana4: 28450,
+    semana5: 50000
   },
 
   alfas: {
     semana1: 36900,
     semana2: 36900,
-    semana3: 31900,
-    semana4: 36900
+    semana3: 36900,
+    semana4: 31900,
+    semana5: 50000
   },
 
   goat: {
     semana1: 32675,
     semana2: 32675,
-    semana3: 27675,
-    semana4: 32675
+    semana3: 32675,
+    semana4: 28450,
+    semana5: 50000
   }
 };
+
+
+/**
+ * MEMBROS DAS EQUIPES
+ *
+ * O Apps Script usa esta configuração para calcular o realizado de cada baia.
+ * Na primeira semana, usa `semana1`. Nas demais semanas e no mês, usa `padrao`.
+ */
+var CONFIG_MEMBROS_EQUIPES = {
+  predadores: {
+    padrao: [
+      "Gabriel Gorgonio",
+      "Maria Laura",
+      "Raíssa Fontoura",
+      "Rodolfo Henrique"
+    ],
+    semana1: [
+      "Camilly Longhi",
+      "Paola Fernandes",
+      "Jane menezes"
+    ]
+  },
+
+  invictus: {
+    padrao: [
+      "Letícia Vieira",
+      "Vinicius Ribeiro",
+      "Chrystian",
+      "Melissa Ferreira"
+    ],
+    semana1: [
+      "Letícia Goretti",
+      "Ana Kelly",
+      "Ana Luiza",
+      "Leticia Pereira"
+    ]
+  },
+
+  evolution: {
+    padrao: [
+      "Giseli de Jesus",
+      "Ana Kelly",
+      "Leticia Pereira",
+      "Carliane",
+    ],
+    semana1: [
+      "Cauê Galates",
+      "Lara Baptista",
+      "Daniela Moura",
+      "Letícia Vieira"
+    ]
+  },
+
+  vip: {
+    padrao: [
+      "Cauê Galates",
+      "Daniela Moura",
+      "Gabrielle Carvalho",
+      "Kevin Cristovão"
+    ],
+    semana1: [
+      "Maria Laura",
+      "Gabriel Gorgonio",
+      "Raíssa Fontoura",
+      "Rodolfo Henrique"
+    ]
+  },
+
+  winx: {
+    padrao: [
+      "Alana Santos",
+      "Camilly Longhi",
+      "Jane menezes",
+      "Paola Fernandes"
+    ],
+    semana1: [
+      "Vinicius Ribeiro",
+      "Gabrielle Carvalho",
+      "Melissa Ferreira",
+      "Kevin Cristovão"
+    ]
+  },
+
+  alfas: {
+    padrao: [
+      "Nathália",
+      "Fabiana Godoy",
+      "Bruna Moraes",
+      "Gabrielle Andrade"
+    ],
+    semana1: [
+      "Fabiana Godoy",
+      "Bruna Moraes",
+      "Nathália",
+      "Gabrielle Andrade"
+    ]
+  },
+
+  goat: {
+    padrao: [
+      "Beatriz Cunha",
+      "Lara Baptista",
+      "Lucas Eduardo",
+      "Estephany"
+    ],
+    semana1: [
+      "Beatriz Cunha",
+      "Lucas Eduardo",
+      "Alana Santos",
+      "Eduardo Rogério"
+    ]
+  }
+};
+
 
 
 /**
@@ -247,33 +381,15 @@ function montarDadosMetaMilhao() {
 ========================================================= */
 
 function responderR2(e) {
+  e = e || {};
+  e.parameter = e.parameter || {};
   var callback = e.parameter.callback || "";
-  var cache = CacheService.getScriptCache();
-  var cacheKey = "vendas_r2_2026";
-  var json = cache.get(cacheKey);
-
   try {
-    if (!json) {
-      json = JSON.stringify(montarDadosR2());
-
-      cache.put(
-        cacheKey,
-        json,
-        CONFIG_R2.CACHE_SEGUNDOS
-      );
-    }
+    var json = JSON.stringify(montarDadosR2());
+    return criarResposta(json, callback);
   } catch (erro) {
-    json = JSON.stringify({
-      sucesso: false,
-      painel: "r2",
-      mensagem: erro.message,
-      filtro: CONFIG_R2.VALOR_FILTRO,
-      total: 0,
-      dados: []
-    });
+    return criarResposta(JSON.stringify({sucesso:false,painel:"r2",mensagem:erro.message,filtros:CONFIG_R2.VALORES_FILTRO,total:0,dados:[]}), callback);
   }
-
-  return criarResposta(json, callback);
 }
 
 
@@ -293,7 +409,7 @@ function montarDadosR2() {
     return {
       sucesso: true,
       painel: "r2",
-      filtro: CONFIG_R2.VALOR_FILTRO,
+      filtros: CONFIG_R2.VALORES_FILTRO,
       total: 0,
       dados: [],
       atualizadoEm: new Date().toISOString()
@@ -312,9 +428,9 @@ function montarDadosR2() {
     )
     .getDisplayValues();
 
-  var filtro = normalizarTexto(
-    CONFIG_R2.VALOR_FILTRO
-  );
+  var filtros = CONFIG_R2.VALORES_FILTRO.map(function(valor) {
+    return normalizarTexto(valor);
+  });
 
   var dados = [];
 
@@ -325,7 +441,7 @@ function montarDadosR2() {
       linha[CONFIG_R2.INDICE_COLUNA_FILTRO]
     );
 
-    if (valorFiltro !== filtro) {
+    if (filtros.indexOf(valorFiltro) === -1) {
       continue;
     }
 
@@ -348,7 +464,7 @@ function montarDadosR2() {
   return {
     sucesso: true,
     painel: "r2",
-    filtro: CONFIG_R2.VALOR_FILTRO,
+    filtros: CONFIG_R2.VALORES_FILTRO,
     total: dados.length,
     dados: dados,
     atualizadoEm: new Date().toISOString()
@@ -361,22 +477,40 @@ function montarDadosR2() {
 ========================================================= */
 
 function responderEquipes(e) {
+  e = e || {};
+  e.parameter = e.parameter || {};
+
   var callback = e.parameter.callback || "";
   var hoje = new Date();
 
-  var mes = Number(
-    e.parameter.mes || hoje.getMonth() + 1
+  // Evita diferença de data entre o servidor do Apps Script e o Brasil.
+  var mesAtual = Number(
+    Utilities.formatDate(
+      hoje,
+      CONFIG_EQUIPES.FUSO_HORARIO,
+      "M"
+    )
   );
 
-  var ano = Number(
-    e.parameter.ano || hoje.getFullYear()
+  var anoAtual = Number(
+    Utilities.formatDate(
+      hoje,
+      CONFIG_EQUIPES.FUSO_HORARIO,
+      "yyyy"
+    )
   );
 
-  var semana = Number(
-    e.parameter.semana || descobrirSemanaAtual(hoje)
-  );
+  var mes = converterInteiroEquipes(e.parameter.mes) || mesAtual;
+  var ano = converterInteiroEquipes(e.parameter.ano) || anoAtual;
 
-  if (semana < 1 || semana > 4) {
+  if (mes < 1 || mes > 12) {
+    mes = mesAtual;
+  }
+
+  var semana = converterInteiroEquipes(e.parameter.semana) ||
+    descobrirSemanaAtual(hoje);
+
+  if (semana < 1 || semana > 5) {
     semana = 1;
   }
 
@@ -391,7 +525,7 @@ function responderEquipes(e) {
   var cache = CacheService.getScriptCache();
 
   var cacheKey = [
-    "painel_equipes",
+    "painel_equipes_v2",
     visao,
     ano,
     mes,
@@ -419,10 +553,21 @@ function responderEquipes(e) {
       );
     }
 
-    // As vendas continuam em cache, mas as metas são lidas da
-    // configuração atual em toda requisição. Isso evita exibir
-    // metas antigas após uma alteração no Apps Script.
+    // Metas e composição das baias são lidas em toda requisição.
+    // As vendas podem continuar em cache por alguns segundos.
     dadosResposta.metas = obterMetasEquipes(semana, visao);
+    dadosResposta.membrosEquipes = obterMembrosTodasEquipes(
+      semana,
+      visao
+    );
+    dadosResposta.equipes = calcularTotaisEquipes(
+      dadosResposta.vendedores,
+      semana,
+      visao
+    );
+    dadosResposta.totalEquipes = somarTotaisEquipes(
+      dadosResposta.equipes
+    );
   } catch (erro) {
     dadosResposta = {
       sucesso: false,
@@ -431,7 +576,10 @@ function responderEquipes(e) {
       mensagem: erro.message,
       vendedores: {},
       vendedoresLista: [],
+      membrosEquipes: obterMembrosTodasEquipes(semana, visao),
+      equipes: calcularTotaisEquipes({}, semana, visao),
       metas: obterMetasEquipes(semana, visao),
+      totalEquipes: 0,
       totalGeral: 0
     };
   }
@@ -445,6 +593,13 @@ function responderEquipes(e) {
 
 function montarDadosEquipes(mes, ano, semana, visao) {
   var planilha = SpreadsheetApp.getActiveSpreadsheet();
+
+  if (!planilha) {
+    throw new Error(
+      "O Apps Script não está vinculado à planilha."
+    );
+  }
+
   var aba = planilha.getSheetByName(CONFIG_EQUIPES.ABA);
 
   if (!aba) {
@@ -453,14 +608,24 @@ function montarDadosEquipes(mes, ano, semana, visao) {
     );
   }
 
+  mes = converterInteiroEquipes(mes);
+  ano = converterInteiroEquipes(ano);
+  semana = converterInteiroEquipes(semana);
   visao = normalizarTexto(visao || "SEMANA");
+
+  if (mes < 1 || mes > 12 || ano < 2000) {
+    throw new Error("Mês ou ano inválido no filtro do painel de times.");
+  }
+
+  if (visao !== "MES") {
+    visao = "SEMANA";
+  }
 
   var periodo = visao === "MES"
     ? obterPeriodoMes(mes, ano)
     : obterPeriodoSemana(semana, mes, ano);
 
   var metas = obterMetasEquipes(semana, visao);
-
   var ultimaLinha = aba.getLastRow();
 
   if (ultimaLinha < CONFIG_EQUIPES.LINHA_INICIAL) {
@@ -477,65 +642,74 @@ function montarDadosEquipes(mes, ano, semana, visao) {
   var quantidadeLinhas =
     ultimaLinha - CONFIG_EQUIPES.LINHA_INICIAL + 1;
 
-  // Primeira leitura: somente B, C, D e E.
-  var dadosPrincipais = aba
-    .getRange(
-      CONFIG_EQUIPES.LINHA_INICIAL,
-      CONFIG_EQUIPES.COLUNA_DIA,
-      quantidadeLinhas,
-      4
-    )
-    .getValues();
+  // Leitura de B:E: dia, mês, ano e vendedor.
+  var intervaloPrincipal = aba.getRange(
+    CONFIG_EQUIPES.LINHA_INICIAL,
+    CONFIG_EQUIPES.COLUNA_DIA,
+    quantidadeLinhas,
+    CONFIG_EQUIPES.COLUNA_VENDEDOR -
+      CONFIG_EQUIPES.COLUNA_DIA + 1
+  );
 
-  // Segunda leitura: somente a coluna T.
-  var valoresTotais = aba
-    .getRange(
-      CONFIG_EQUIPES.LINHA_INICIAL,
-      CONFIG_EQUIPES.COLUNA_VALOR_TOTAL,
-      quantidadeLinhas,
-      1
-    )
-    .getValues();
+  var dadosPrincipais = intervaloPrincipal.getValues();
+  var dadosPrincipaisExibidos = intervaloPrincipal.getDisplayValues();
+
+  // Leitura da coluna T, incluindo o valor bruto e o valor exibido.
+  // O valor exibido serve como segurança quando a célula contém "R$".
+  var intervaloValores = aba.getRange(
+    CONFIG_EQUIPES.LINHA_INICIAL,
+    CONFIG_EQUIPES.COLUNA_VALOR_TOTAL,
+    quantidadeLinhas,
+    1
+  );
+
+  var valoresTotais = intervaloValores.getValues();
+  var valoresTotaisExibidos = intervaloValores.getDisplayValues();
 
   var totaisNormalizados = {};
   var nomesOriginais = {};
   var totalGeral = 0;
+  var linhasConsideradas = 0;
 
   for (var i = 0; i < dadosPrincipais.length; i++) {
     var linha = dadosPrincipais[i];
+    var linhaExibida = dadosPrincipaisExibidos[i];
 
-    var diaVenda = converterInteiroEquipes(linha[0]); // B
-    var mesVenda = converterInteiroEquipes(linha[1]); // C
-    var anoVenda = converterInteiroEquipes(linha[2]); // D
+    var dataVenda = interpretarDataEquipes(
+      linha[0],       // B - dia ou data
+      linha[1],       // C - mês
+      linha[2],       // D - ano
+      linhaExibida[0],
+      linhaExibida[1],
+      linhaExibida[2]
+    );
 
     var vendedor = String(
-      linha[3] || ""
+      linha[3] || linhaExibida[3] || ""
     ).trim(); // E
 
-    var valorTotalVenda = converterNumeroEquipes(
-      valoresTotais[i][0]
+    var valorTotalVenda = interpretarValorEquipes(
+      valoresTotais[i][0],
+      valoresTotaisExibidos[i][0]
     ); // T
 
-    if (!vendedor) {
+    if (!dataVenda || !vendedor) {
       continue;
     }
 
-    if (mesVenda !== mes || anoVenda !== ano) {
+    if (dataVenda.mes !== mes || dataVenda.ano !== ano) {
       continue;
     }
 
-    if (visao === "MES") {
-      if (!diaUtilComercial(diaVenda, mes, ano)) {
-        continue;
-      }
-    } else if (
-      diaVenda < periodo.inicio ||
-      diaVenda > periodo.fim
-    ) {
+    if (!dataPertenceAoPeriodoEquipes(dataVenda, periodo)) {
       continue;
     }
 
     var chaveVendedor = normalizarTexto(vendedor);
+
+    if (!chaveVendedor) {
+      continue;
+    }
 
     if (
       !Object.prototype.hasOwnProperty.call(
@@ -547,32 +721,46 @@ function montarDadosEquipes(mes, ano, semana, visao) {
       nomesOriginais[chaveVendedor] = vendedor;
     }
 
-    totaisNormalizados[chaveVendedor] += valorTotalVenda;
-    totalGeral += valorTotalVenda;
+    totaisNormalizados[chaveVendedor] = arredondarMoedaEquipes(
+      totaisNormalizados[chaveVendedor] + valorTotalVenda
+    );
+
+    totalGeral = arredondarMoedaEquipes(
+      totalGeral + valorTotalVenda
+    );
+
+    linhasConsideradas++;
   }
 
   var vendedores = {};
   var vendedoresLista = [];
 
-  Object.keys(totaisNormalizados).forEach(
-    function(chave) {
-      var nome = nomesOriginais[chave];
-      var total = totaisNormalizados[chave];
+  Object.keys(totaisNormalizados).forEach(function(chave) {
+    var nome = nomesOriginais[chave];
+    var total = totaisNormalizados[chave];
 
-      vendedores[nome] = total;
-      vendedores[chave] = total;
+    // Mantém as duas formas para o index localizar com ou sem acento.
+    vendedores[nome] = total;
+    vendedores[chave] = total;
 
-      vendedoresLista.push({
-        nome: nome,
-        chave: chave,
-        total: total
-      });
-    }
-  );
+    vendedoresLista.push({
+      nome: nome,
+      chave: chave,
+      total: total
+    });
+  });
 
   vendedoresLista.sort(function(a, b) {
     return b.total - a.total;
   });
+
+  var equipes = calcularTotaisEquipes(
+    vendedores,
+    semana,
+    visao
+  );
+
+  var totalEquipes = somarTotaisEquipes(equipes);
 
   return {
     sucesso: true,
@@ -582,14 +770,27 @@ function montarDadosEquipes(mes, ano, semana, visao) {
     periodo: periodo,
     mes: mes,
     ano: ano,
+    origem: {
+      aba: CONFIG_EQUIPES.ABA,
+      data: "B/C/D",
+      vendedor: "E",
+      valor: "T"
+    },
+    linhasConsideradas: linhasConsideradas,
     vendedores: vendedores,
     vendedoresLista: vendedoresLista,
+    membrosEquipes: obterMembrosTodasEquipes(semana, visao),
+    equipes: equipes,
     metas: metas,
+    totalEquipes: totalEquipes,
     totalGeral: totalGeral,
-    atualizadoEm: new Date().toISOString()
+    atualizadoEm: Utilities.formatDate(
+      new Date(),
+      CONFIG_EQUIPES.FUSO_HORARIO,
+      "yyyy-MM-dd'T'HH:mm:ss"
+    )
   };
 }
-
 
 function criarRetornoEquipesVazio(mes, ano, semana, visao, periodo, metas) {
   return {
@@ -602,10 +803,94 @@ function criarRetornoEquipesVazio(mes, ano, semana, visao, periodo, metas) {
     ano: ano,
     vendedores: {},
     vendedoresLista: [],
+    membrosEquipes: obterMembrosTodasEquipes(semana, visao),
+    equipes: calcularTotaisEquipes({}, semana, visao),
     metas: metas || obterMetasEquipes(semana, visao),
+    totalEquipes: 0,
     totalGeral: 0,
     atualizadoEm: new Date().toISOString()
   };
+}
+
+
+/* =========================================================
+   TOTAIS DAS EQUIPES
+========================================================= */
+
+function obterMembrosEquipe(equipeId, semana, visao) {
+  var configuracao = CONFIG_MEMBROS_EQUIPES[equipeId] || {};
+  var usarSemana1 =
+    normalizarTexto(visao) !== "MES" &&
+    converterInteiroEquipes(semana) === 1;
+
+  if (usarSemana1 && Array.isArray(configuracao.semana1)) {
+    return configuracao.semana1;
+  }
+
+  return Array.isArray(configuracao.padrao)
+    ? configuracao.padrao
+    : [];
+}
+
+
+function obterMembrosTodasEquipes(semana, visao) {
+  var membrosEquipes = {};
+
+  Object.keys(CONFIG_MEMBROS_EQUIPES).forEach(function(equipeId) {
+    membrosEquipes[equipeId] = obterMembrosEquipe(
+      equipeId,
+      semana,
+      visao
+    ).slice();
+  });
+
+  return membrosEquipes;
+}
+
+
+function calcularTotaisEquipes(vendedores, semana, visao) {
+  var vendedoresNormalizados = {};
+  var totaisEquipes = {};
+
+  Object.keys(vendedores || {}).forEach(function(nome) {
+    var chave = normalizarTexto(nome);
+    var valor = converterNumeroEquipes(vendedores[nome]);
+
+    if (!chave) {
+      return;
+    }
+
+    vendedoresNormalizados[chave] = Math.max(
+      converterNumeroEquipes(vendedoresNormalizados[chave]),
+      valor
+    );
+  });
+
+  Object.keys(CONFIG_MEMBROS_EQUIPES).forEach(function(equipeId) {
+    var membros = obterMembrosEquipe(equipeId, semana, visao);
+    var total = 0;
+
+    membros.forEach(function(nome) {
+      total += converterNumeroEquipes(
+        vendedoresNormalizados[normalizarTexto(nome)]
+      );
+    });
+
+    totaisEquipes[equipeId] = arredondarMoedaEquipes(total);
+  });
+
+  return totaisEquipes;
+}
+
+
+function somarTotaisEquipes(equipes) {
+  var total = 0;
+
+  Object.keys(equipes || {}).forEach(function(equipeId) {
+    total += converterNumeroEquipes(equipes[equipeId]);
+  });
+
+  return arredondarMoedaEquipes(total);
 }
 
 
@@ -635,7 +920,8 @@ function obterMetasEquipes(semana, visao) {
         converterNumeroEquipes(configuracao.semana1) +
         converterNumeroEquipes(configuracao.semana2) +
         converterNumeroEquipes(configuracao.semana3) +
-        converterNumeroEquipes(configuracao.semana4);
+        converterNumeroEquipes(configuracao.semana4) +
+        converterNumeroEquipes(configuracao.semana5);
 
       return;
     }
@@ -658,7 +944,8 @@ function obterMetasEquipes(semana, visao) {
  * 1ª: 1 a 4
  * 2ª: 6 a 11
  * 3ª: 13 a 18
- * 4ª: 20 até o final do mês
+ * 4ª: 20 a 25
+ * 5ª: 27 até o final do mês
  */
 function obterPeriodoSemana(semana, mes, ano) {
   var ultimoDiaDoMes = new Date(
@@ -695,6 +982,14 @@ function obterPeriodoSemana(semana, mes, ano) {
     4: {
       tipo: "semana",
       inicio: 20,
+      fim: Math.min(25, ultimoDiaDoMes),
+      mes: mes,
+      ano: ano
+    },
+
+    5: {
+      tipo: "semana",
+      inicio: 27,
       fim: ultimoDiaDoMes,
       mes: mes,
       ano: ano
@@ -734,8 +1029,146 @@ function diaUtilComercial(dia, mes, ano) {
 }
 
 
+/**
+ * Aceita tanto B/C/D separados quanto uma data completa na coluna B.
+ */
+function interpretarDataEquipes(
+  valorDia,
+  valorMes,
+  valorAno,
+  diaExibido,
+  mesExibido,
+  anoExibido
+) {
+  if (
+    valorDia instanceof Date &&
+    !isNaN(valorDia.getTime())
+  ) {
+    return {
+      dia: Number(
+        Utilities.formatDate(
+          valorDia,
+          CONFIG_EQUIPES.FUSO_HORARIO,
+          "d"
+        )
+      ),
+      mes: Number(
+        Utilities.formatDate(
+          valorDia,
+          CONFIG_EQUIPES.FUSO_HORARIO,
+          "M"
+        )
+      ),
+      ano: Number(
+        Utilities.formatDate(
+          valorDia,
+          CONFIG_EQUIPES.FUSO_HORARIO,
+          "yyyy"
+        )
+      )
+    };
+  }
+
+  var dia = converterInteiroEquipes(valorDia || diaExibido);
+  var mes = converterInteiroEquipes(valorMes || mesExibido);
+  var ano = converterInteiroEquipes(valorAno || anoExibido);
+
+  if (ano > 0 && ano < 100) {
+    ano += 2000;
+  }
+
+  if (
+    dia < 1 || dia > 31 ||
+    mes < 1 || mes > 12 ||
+    ano < 2000
+  ) {
+    // Segurança para o caso de B vir como texto no formato dd/mm/aaaa.
+    var textoData = String(diaExibido || valorDia || "").trim();
+    var partes = textoData.match(
+      /^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/
+    );
+
+    if (!partes) {
+      return null;
+    }
+
+    dia = Number(partes[1]);
+    mes = Number(partes[2]);
+    ano = Number(partes[3]);
+
+    if (ano < 100) {
+      ano += 2000;
+    }
+  }
+
+  var ultimoDia = new Date(ano, mes, 0).getDate();
+
+  if (dia > ultimoDia) {
+    return null;
+  }
+
+  return {
+    dia: dia,
+    mes: mes,
+    ano: ano
+  };
+}
+
+
+function interpretarValorEquipes(valorBruto, valorExibido) {
+  if (
+    typeof valorBruto === "number" &&
+    isFinite(valorBruto)
+  ) {
+    return arredondarMoedaEquipes(valorBruto);
+  }
+
+  return arredondarMoedaEquipes(
+    converterNumeroEquipes(valorExibido || valorBruto)
+  );
+}
+
+
+function dataPertenceAoPeriodoEquipes(dataVenda, periodo) {
+  if (!dataVenda || !periodo) {
+    return false;
+  }
+
+  if (
+    dataVenda.dia < periodo.inicio ||
+    dataVenda.dia > periodo.fim
+  ) {
+    return false;
+  }
+
+  if (
+    CONFIG_EQUIPES.IGNORAR_DOMINGO &&
+    !diaUtilComercial(
+      dataVenda.dia,
+      dataVenda.mes,
+      dataVenda.ano
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+
+function arredondarMoedaEquipes(valor) {
+  return Math.round((Number(valor) || 0) * 100) / 100;
+}
+
+
 function descobrirSemanaAtual(data) {
-  var dia = data.getDate();
+  var dia = Number(
+    Utilities.formatDate(
+      data,
+      CONFIG_EQUIPES.FUSO_HORARIO,
+      "d"
+    )
+  );
 
   if (dia <= 5) {
     return 1;
@@ -749,9 +1182,12 @@ function descobrirSemanaAtual(data) {
     return 3;
   }
 
-  return 4;
-}
+  if (dia <= 26) {
+    return 4;
+  }
 
+  return 5;
+}
 
 
 
