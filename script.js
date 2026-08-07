@@ -1,5 +1,5 @@
 const CONFIG = {
-  appsScriptUrl: "https://script.google.com/macros/s/AKfycbzi-jbRSsxs-zLwMZ8ujKbNboKoQiyXYR0wdhLCOGwylcEajAaO7RR8mWadUDKM5tQ7/exec",
+  appsScriptUrl: "https://script.google.com/macros/s/AKfycbzXCgSQ7yrj3evtyX6U9D7B5uBVlmtBWC5vayHc3yA24MujmrSQtEgERn9oFORDzmYv/exec",
   refreshIntervalMs: 60_000,
   previewDurationMs: 8500
 };
