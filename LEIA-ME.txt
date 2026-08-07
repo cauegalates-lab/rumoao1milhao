@@ -1,14 +1,14 @@
 PAINEL RUMO AO 1 MILHÃO - UNIFAHE
 
 O QUE JÁ ESTÁ CONFIGURADO
-- A meta de R$ 1.000.000 fica fixa no index.html, no atributo data-goal.
-- O faturamento será lido da aba Julho, célula AK35.
+- A meta de R$ 1.200.000 fica fixa no index.html, no atributo data-goal.
+- O faturamento será lido exclusivamente da aba Agosto, célula AK35.
 - Faltam, percentual atingido, percentual restante e barra de progresso são calculados automaticamente.
 - O painel consulta a planilha novamente a cada 60 segundos.
 - O cronômetro continua contando até o fim do mês atual.
 
 COMO CONECTAR
-1. Abra a planilha que contém a aba Julho.
+1. Abra a planilha que contém a aba Agosto.
 2. Vá em Extensões > Apps Script.
 3. Cole o conteúdo do arquivo Code.gs.
 4. Clique em Implantar > Nova implantação.
@@ -30,3 +30,14 @@ BOTÃO DE TESTE DA ANIMAÇÃO
 O botão “ATIVAR ANIMAÇÃO”, no cabeçalho do painel, permite executar manualmente
 a comemoração de 1 milhão sem alterar o valor da planilha. Ele pode ser usado
 quantas vezes for necessário para apresentação e conferência.
+
+
+DIAGNÓSTICO DA ORIGEM DO FATURAMENTO
+-----------------------------------
+A rota ?rota=metaMilhao agora devolve também o nome e o ID da planilha,
+o valor bruto, o valor exibido e a fórmula de Agosto!AK35. Isso permite
+confirmar exatamente de qual planilha a implantação publicada está lendo.
+O cache da meta foi removido para evitar valor antigo.
+
+Se o Apps Script estiver implantado a partir de outra planilha, preencha
+CONFIG_META_MILHAO.PLANILHA_ID no Code.gs com o ID da planilha correta.
